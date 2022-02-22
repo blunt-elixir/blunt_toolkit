@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/364786/155075370-407d76f1-a002-4dfb-9f
 ## Usage
 
 
-Add `{:commanded_toolkit, github: "elixir-cqrs/commanded_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
+Add `{:cqrs_toolkit, github: "elixir-cqrs/cqrs_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
 
 You can launch the UI with `mix cqrs.inspect.aggregate`. 
 
