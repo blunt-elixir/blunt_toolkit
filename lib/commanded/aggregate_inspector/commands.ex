@@ -36,7 +36,12 @@ defmodule Commanded.AggregateInspector.Commands do
     Cqrs.Behaviour.validate!(eventstore, EventStore)
 
     {:ok, _} = Application.ensure_all_started(:eventstore)
-    {:ok, _} = eventstore.start_link()
+
+    case eventstore.start_link() do
+      {:ok, _} -> :ok
+      {:error, {:already_started, _}} -> :ok
+      other -> raise inspect(other)
+    end
 
     eventstore
   end
