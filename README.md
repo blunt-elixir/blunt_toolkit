@@ -10,9 +10,8 @@ So I set out to get a bit of something working.
 
 After discovering and digging a bit into [ratatouille](https://github.com/ndreynolds/ratatouille), I was able to get that little something.
 
+https://user-images.githubusercontent.com/364786/155075370-407d76f1-a002-4dfb-9fa6-d29ca14eda64.mp4
 
-
-https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81cf-b1347583d464.mp4
 
 ## Usage
 
