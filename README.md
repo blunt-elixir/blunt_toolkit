@@ -1,5 +1,7 @@
 # Commanded Toolkit
 
+There is currently only one "tool" in this repo. The Aggregate Inspector.
+
 `threequarterspi` over on Slack asked if anyone had implemented some sort of time-traveling for `Commanded`. 
 
 I immediately thought of the `redux devtools` and thought that would be pretty cool for viewing aggregate state over time...with real data.
