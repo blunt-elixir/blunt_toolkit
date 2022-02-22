@@ -9,8 +9,8 @@ defmodule Mix.Tasks.Commanded.Inspect.Aggregate do
         raise "not in a mix project"
 
       app ->
-        Logger.configure(level: :warning)
         Mix.Task.run("app.start", ["--no-start"])
+        Logger.configure(level: :warning)
 
         with {:ok, _} <- Application.ensure_all_started(app) do
           Ratatouille.run(Commanded.AggregateInspector, quit_events: [{:key, key(:ctrl_c)}])
