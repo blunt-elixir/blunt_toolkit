@@ -14,12 +14,46 @@ https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81
 
 ## Usage
 
+### From this repo
+
 simply run `mix view_state` and answer the questions.
 
 Then you can use the <kbd>⬆</kbd> / <kbd>⬇</kbd> or <kbd>j</kbd> / <kbd>k</kbd> keys to navigate through the history of your aggregate.
 
 Strike <kbd>Ctrl+c</kbd> with some heft to quit.
-### notes
+
+### From you own project.
+
+Add `{:commanded_toolkit, github: "elixir-cqrs/commanded_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
+
+You can launch the UI with `mix commanded.inspect.aggregate`. 
+
+That can be a drag to type all the time, so I would recommend assigning an alias in your mix file.
+
+```elixir
+  def aliases do
+    [
+      view_state: "commanded.inspect.aggregate"
+    ]
+  end
+```
+
+and make sure you're including aliases in your project function.
+
+```elixir
+  def project do
+    [
+      ...
+      deps: deps(),
+      aliases: aliases(),
+      ...
+    ]
+  end
+```
+
+Now you can just run `mix view_state`
+
+## notes
 
 * The event store module you enter *must* be a valid EventStore.
 
