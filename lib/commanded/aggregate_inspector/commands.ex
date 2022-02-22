@@ -7,7 +7,7 @@ defmodule Commanded.AggregateInspector.Commands do
 
   defp step_through(events, aggregate_module) do
     initial_state = struct(aggregate_module)
-    acc = {initial_state, [{0, %{state: initial_state, event: nil, event_type: "nil"}}]}
+    acc = {initial_state, [{0, %{state: initial_state, event: nil, event_type: "initial state"}}]}
 
     {_current_state, states} =
       events

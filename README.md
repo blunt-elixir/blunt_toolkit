@@ -18,7 +18,7 @@ simply run `mix view_state` and answer the questions.
 
 Then you can use the <kbd>⬆</kbd> / <kbd>⬇</kbd> or <kbd>j</kbd> / <kbd>k</kbd> keys to navigate through the history of your aggregate.
 
-Hit the <kbd>q</kbd> key to quit.
+Strike <kbd>Ctrl+c</kbd> with some heft to quit.
 ### notes
 
 * The event store module you enter *must* be a valid EventStore.

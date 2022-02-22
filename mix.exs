@@ -30,11 +30,10 @@ defmodule CommandedToolkit.MixProject do
   defp deps do
     [
       {:ratatouille, "~> 0.5"},
-
-      # {:cqrs_tools, github: "elixir-cqrs/cqrs_tools"},
-      # {:cqrs_tools_ddd, github: "elixir-cqrs/cqrs_tools_ddd"},
-      {:cqrs_tools, path: "../cqrs_tools", override: true},
-      {:cqrs_tools_ddd, path: "../cqrs_tools_ddd", override: true},
+      {:cqrs_tools, github: "elixir-cqrs/cqrs_tools"},
+      {:cqrs_tools_ddd, github: "elixir-cqrs/cqrs_tools_ddd"},
+      # {:cqrs_tools, path: "../cqrs_tools", override: true},
+      # {:cqrs_tools_ddd, path: "../cqrs_tools_ddd", override: true},
       {:commanded, "~> 1.3"},
       {:eventstore, "~> 1.3"},
       {:jason, "~> 1.3"},

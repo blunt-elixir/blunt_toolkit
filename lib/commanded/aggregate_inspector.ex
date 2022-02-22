@@ -144,10 +144,13 @@ defmodule Commanded.AggregateInspector do
   end
 
   def render(model) do
-    File.write!("debug.log", inspect(model, pretty: true))
-
-    %{aggregate: aggregate, state: state, current_version: current_version, stream: stream} =
-      model
+    %{
+      aggregate: aggregate,
+      state: state,
+      current_version: current_version,
+      stream: stream,
+      eventstore: eventstore
+    } = model
 
     current_state =
       state
@@ -156,7 +159,11 @@ defmodule Commanded.AggregateInspector do
 
     menu_bar =
       bar do
-        label(content: "aggregate: #{inspect(aggregate)}, stream: #{stream}", color: :blue)
+        label(
+          content:
+            "eventstore: #{eventstore} stream: #{stream}, aggregate: #{inspect(aggregate)}",
+          color: :blue
+        )
       end
 
     view(top_bar: menu_bar) do
