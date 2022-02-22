@@ -29,8 +29,7 @@ defmodule CommandedToolkit.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:ratatouille, "~> 0.5"},
-      {:ratatouille, path: "/Users/chris/code/contrib/ratatouille"},
+      {:ratatouille, "~> 0.5"},
 
       # {:cqrs_tools, github: "elixir-cqrs/cqrs_tools"},
       # {:cqrs_tools_ddd, github: "elixir-cqrs/cqrs_tools_ddd"},
