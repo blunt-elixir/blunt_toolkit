@@ -163,10 +163,13 @@ defmodule Commanded.AggregateInspector do
       row do
         column(size: 4) do
           panel(title: "Events", height: :fill) do
-            viewport(offset_y: current_version) do
+            viewport do
               for {index, event} <- state do
                 if index == current_version do
-                  label(content: "> v#{index}", attributes: [:bold])
+                  label(
+                    content: "> v#{index} " <> event[:event_type],
+                    attributes: [:bold]
+                  )
                 else
                   label(content: "v#{index} " <> event[:event_type])
                 end
