@@ -99,6 +99,12 @@ defmodule Commanded.AggregateInspector do
       {:stream_loaded, events} ->
         %{model | state: events}
 
+      {:event, %{ch: ?k}} ->
+        %{model | current_version: max(current_version - 1, 0)}
+
+      {:event, %{ch: ?j}} ->
+        %{model | current_version: min(current_version + 1, length(Map.keys(state)) - 1)}
+
       {:event, %{key: key}} when key in [@arrow_up, @arrow_down] ->
         new_version =
           case key do

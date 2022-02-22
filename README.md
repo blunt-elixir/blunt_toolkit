@@ -12,3 +12,20 @@ After discovering and digging a bit into [ratatouille](https://github.com/ndreyn
 
 https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81cf-b1347583d464.mp4
 
+## Usage
+
+simply run `mix view_state` and answer the questions.
+
+Then you can use the <kbd>⬆</kbd> / <kbd>⬇</kbd> or <kbd>j</kbd> / <kbd>k</kbd> keys to navigate through the history of your aggregate.
+
+Hit the <kbd>q</kbd> key to quit.
+### notes
+
+* The event store module you enter *must* be a valid EventStore.
+
+* The aggregate module you enter *must* be a valid aggregate module with an `apply/2` function.
+
+* The stream must exist. Duh
+
+* The next time you run the mix task, it will present you with your last answers as defaults.
+
