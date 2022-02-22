@@ -14,15 +14,6 @@ https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81
 
 ## Usage
 
-### From this repo
-
-simply run `mix view_state` and answer the questions.
-
-Then you can use the <kbd>⬆</kbd> / <kbd>⬇</kbd> or <kbd>j</kbd> / <kbd>k</kbd> keys to navigate through the history of your aggregate.
-
-Strike <kbd>Ctrl+c</kbd> with some heft to quit.
-
-### From you own project.
 
 Add `{:commanded_toolkit, github: "elixir-cqrs/commanded_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
 
@@ -52,6 +43,15 @@ and make sure you're including aliases in your project function.
 ```
 
 Now you can just run `mix view_state`
+
+
+### Navigation 
+
+You can use the <kbd>⬆</kbd> / <kbd>⬇</kbd> or <kbd>j</kbd> / <kbd>k</kbd> keys to navigate through the history of your aggregate.
+
+### Exiting
+
+Strike <kbd>Ctrl+c</kbd> with some heft.
 
 ## notes
 
