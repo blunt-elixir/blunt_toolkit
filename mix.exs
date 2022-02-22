@@ -9,7 +9,10 @@ defmodule CommandedToolkit.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      preferred_cli_env: [
+        view_state: :test
+      ]
     ]
   end
 
@@ -43,6 +46,8 @@ defmodule CommandedToolkit.MixProject do
   end
 
   def aliases do
-    [viewagg: "commanded.inspect.aggregate"]
+    [
+      view_state: "commanded.inspect.aggregate"
+    ]
   end
 end
