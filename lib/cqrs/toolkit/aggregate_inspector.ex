@@ -3,6 +3,8 @@ defmodule Cqrs.Toolkit.AggregateInspector do
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
+  use Cqrs.Toolkit.AggregateInspector.InputHandlers
+
   alias Ratatouille.Runtime.Command
   alias Cqrs.Toolkit.AggregateInspector.{Cache, Commands}
 
@@ -39,59 +41,35 @@ defmodule Cqrs.Toolkit.AggregateInspector do
     |> Cache.get(:eventstore)
   end
 
-  def update(%{eventstore_loaded: false, eventstore: eventstore} = model, msg) do
-    case msg do
-      {:event, %{key: key}} when key in @delete_keys ->
-        %{model | eventstore: String.slice(eventstore, 0..-2)}
-
-      {:event, %{key: @enter_key}} ->
+  def update(%{eventstore_loaded: false} = model, msg) do
+    handle_common_input(model, :eventstore, msg,
+      on_enter: fn eventstore ->
         eventstore = Commands.get_event_store!(eventstore)
         _ = Cache.put(:eventstore, eventstore)
         %{model | eventstore: eventstore, eventstore_loaded: true}
-
-      {:event, %{ch: ch}} when ch > 0 ->
-        %{model | eventstore: eventstore <> <<ch::utf8>>}
-
-      _ ->
-        model
-    end
+      end
+    )
   end
 
-  def update(%{stream_loaded: false, stream: stream} = model, msg) do
-    case msg do
-      {:event, %{key: key}} when key in @delete_keys ->
-        %{model | stream: String.slice(stream, 0..-2)}
-
-      {:event, %{key: @enter_key}} ->
+  def update(%{stream_loaded: false} = model, msg) do
+    handle_common_input(model, :stream, msg,
+      on_enter: fn stream ->
         Cache.put(:stream, stream)
         %{model | stream: stream, stream_loaded: true}
-
-      {:event, %{ch: ch}} when ch > 0 ->
-        %{model | stream: stream <> <<ch::utf8>>}
-
-      _ ->
-        model
-    end
+      end
+    )
   end
 
-  def update(%{aggregate_loaded: false, aggregate: aggregate} = model, msg) do
-    case msg do
-      {:event, %{key: key}} when key in @delete_keys ->
-        %{model | aggregate: String.slice(aggregate, 0..-2)}
-
-      {:event, %{key: @enter_key}} ->
+  def update(%{aggregate_loaded: false} = model, msg) do
+    handle_common_input(model, :aggregate, msg,
+      on_enter: fn aggregate ->
         aggregate = Commands.get_aggregate!(aggregate)
         Cache.put(:aggregate, aggregate)
         model = %{model | aggregate: aggregate, aggregate_loaded: true}
         command = Command.new(fn -> Commands.load_stream(model) end, :stream_loaded)
         {model, command}
-
-      {:event, %{ch: ch}} when ch > 0 ->
-        %{model | aggregate: aggregate <> <<ch::utf8>>}
-
-      _ ->
-        model
-    end
+      end
+    )
   end
 
   def update(%{current_version: current_version, state: state} = model, msg) do
