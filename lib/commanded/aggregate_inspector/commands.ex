@@ -38,12 +38,10 @@ defmodule Commanded.AggregateInspector.Commands do
     {:ok, _} = Application.ensure_all_started(:eventstore)
 
     case eventstore.start_link() do
-      {:ok, _} -> :ok
-      {:error, {:already_started, _}} -> :ok
+      {:ok, _} -> eventstore
+      {:error, {:already_started, _}} -> eventstore
       other -> raise inspect(other)
     end
-
-    eventstore
   end
 
   def get_aggregate!(aggregate) do
