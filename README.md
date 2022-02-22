@@ -6,7 +6,9 @@ I immediately thought of the `redux devtools` and thought that would be pretty c
 
 So I set out to get a bit of something working. 
 
-After discovering and digging a bit into [ratatouille](ndreynolds/ratatouille), I was able to get that little something.
+After discovering and digging a bit into [ratatouille](https://github.com/ndreynolds/ratatouille), I was able to get that little something.
 
-https://cln.sh/SwfbYN
+
+
+https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81cf-b1347583d464.mp4
 
