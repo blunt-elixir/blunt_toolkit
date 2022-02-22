@@ -29,7 +29,7 @@ defmodule Commanded.AggregateInspector do
       eventstore: "",
       eventstore_loaded: false,
       current_version: 0,
-      state: %{},
+      state: [],
       loading: true
     }
 
@@ -39,8 +39,8 @@ defmodule Commanded.AggregateInspector do
     |> Cache.get(:eventstore)
   end
 
-  def update(%{eventstore_loaded: false, eventstore: eventstore} = model, text) do
-    case text do
+  def update(%{eventstore_loaded: false, eventstore: eventstore} = model, msg) do
+    case msg do
       {:event, %{key: key}} when key in @delete_keys ->
         %{model | eventstore: String.slice(eventstore, 0..-2)}
 
@@ -57,8 +57,8 @@ defmodule Commanded.AggregateInspector do
     end
   end
 
-  def update(%{stream_loaded: false, stream: stream} = model, text) do
-    case text do
+  def update(%{stream_loaded: false, stream: stream} = model, msg) do
+    case msg do
       {:event, %{key: key}} when key in @delete_keys ->
         %{model | stream: String.slice(stream, 0..-2)}
 
@@ -74,8 +74,8 @@ defmodule Commanded.AggregateInspector do
     end
   end
 
-  def update(%{aggregate_loaded: false, aggregate: aggregate} = model, text) do
-    case text do
+  def update(%{aggregate_loaded: false, aggregate: aggregate} = model, msg) do
+    case msg do
       {:event, %{key: key}} when key in @delete_keys ->
         %{model | aggregate: String.slice(aggregate, 0..-2)}
 
@@ -144,53 +144,72 @@ defmodule Commanded.AggregateInspector do
   end
 
   def render(model) do
-    %{
-      aggregate: aggregate,
-      state: state,
-      current_version: current_version,
-      stream: stream,
-      eventstore: eventstore
-    } = model
+    view do
+      render_metadata_row(model)
 
+      row do
+        column size: 4 do
+          render_events_panel(model)
+        end
+
+        column size: 8 do
+          render_state_panel(model)
+        end
+      end
+    end
+  end
+
+  defp render_events_panel(%{current_version: current_version, state: state}) do
+    title = "Events (#{current_version} of #{length(state) - 1})"
+
+    panel title: title, height: :fill, color: :blue do
+      viewport offset_y: current_version do
+        for {event, index} <- Enum.with_index(state) do
+          type = Map.fetch!(event, :event_type)
+
+          if index == current_version do
+            label(content: "> v#{index} " <> type, attributes: [:bold])
+          else
+            label(content: "v#{index} " <> type)
+          end
+        end
+      end
+    end
+  end
+
+  defp render_state_panel(%{current_version: current_version, state: state}) do
     current_state =
       state
       |> Enum.at(current_version, %{})
       |> Map.get(:state)
 
-    menu_bar =
-      bar do
-        label(
-          content:
-            "eventstore: #{eventstore} stream: #{stream}, aggregate: #{inspect(aggregate)}",
-          color: :blue
-        )
+    title = "State @ version #{current_version}"
+
+    panel title: title, height: :fill, color: :blue do
+      viewport do
+        label(content: inspect(current_state, pretty: true, limit: :infinity))
+      end
+    end
+  end
+
+  defp render_metadata_row(%{aggregate: aggregate, stream: stream, eventstore: eventstore}) do
+    row do
+      column size: 12 do
+        render_metadata_row("eventstore", inspect(eventstore))
+        render_metadata_row("aggregate", inspect(aggregate))
+        render_metadata_row("stream", stream)
+      end
+    end
+  end
+
+  defp render_metadata_row(title, content) do
+    row do
+      column size: 1 do
+        label(content: title, color: :blue)
       end
 
-    view(top_bar: menu_bar) do
-      row do
-        column(size: 4) do
-          panel(title: "Events", height: :fill) do
-            viewport(offset_y: current_version) do
-              for {event, index} <- Enum.with_index(state) do
-                type = Map.fetch!(event, :event_type)
-
-                if index == current_version do
-                  label(content: "> v#{index} " <> type, attributes: [:bold])
-                else
-                  label(content: "v#{index} " <> type)
-                end
-              end
-            end
-          end
-        end
-
-        column(size: 8) do
-          panel(title: "State", height: :fill) do
-            viewport do
-              label(content: inspect(current_state, pretty: true))
-            end
-          end
-        end
+      column size: 11 do
+        label(content: content)
       end
     end
   end
