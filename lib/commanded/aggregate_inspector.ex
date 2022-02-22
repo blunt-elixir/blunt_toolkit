@@ -103,13 +103,13 @@ defmodule Commanded.AggregateInspector do
         %{model | current_version: max(current_version - 1, 0)}
 
       {:event, %{ch: ?j}} ->
-        %{model | current_version: min(current_version + 1, length(Map.keys(state)) - 1)}
+        %{model | current_version: min(current_version + 1, length(state) - 1)}
 
       {:event, %{key: key}} when key in [@arrow_up, @arrow_down] ->
         new_version =
           case key do
             @arrow_up -> max(current_version - 1, 0)
-            @arrow_down -> min(current_version + 1, length(Map.keys(state)) - 1)
+            @arrow_down -> min(current_version + 1, length(state) - 1)
           end
 
         %{model | current_version: new_version}
@@ -154,7 +154,7 @@ defmodule Commanded.AggregateInspector do
 
     current_state =
       state
-      |> Map.get(current_version, %{})
+      |> Enum.at(current_version, %{})
       |> Map.get(:state)
 
     menu_bar =
@@ -170,15 +170,14 @@ defmodule Commanded.AggregateInspector do
       row do
         column(size: 4) do
           panel(title: "Events", height: :fill) do
-            viewport do
-              for {index, event} <- state do
+            viewport(offset_y: current_version) do
+              for {event, index} <- Enum.with_index(state) do
+                type = Map.fetch!(event, :event_type)
+
                 if index == current_version do
-                  label(
-                    content: "> v#{index} " <> event[:event_type],
-                    attributes: [:bold]
-                  )
+                  label(content: "> v#{index} " <> type, attributes: [:bold])
                 else
-                  label(content: "v#{index} " <> event[:event_type])
+                  label(content: "v#{index} " <> type)
                 end
               end
             end

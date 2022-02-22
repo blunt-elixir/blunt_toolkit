@@ -14,6 +14,6 @@ defmodule Mix.Tasks.Commanded.Inspect.AggregateTest do
     opts = [stream_uuid: "person-" <> @person_id]
 
     append_to_stream(:person_created, data, opts)
-    append_to_stream_list(5, :person_updated, data, opts)
+    append_to_stream_list(50, :person_updated, data, opts)
   end
 end

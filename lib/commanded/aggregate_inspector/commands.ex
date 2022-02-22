@@ -7,28 +7,23 @@ defmodule Commanded.AggregateInspector.Commands do
 
   defp step_through(events, aggregate_module) do
     initial_state = struct(aggregate_module)
-    acc = {initial_state, [{0, %{state: initial_state, event: nil, event_type: "initial state"}}]}
+    acc = {initial_state, [%{state: initial_state, event: nil, event_type: "initial state"}]}
 
     {_current_state, states} =
       events
-      |> Enum.with_index(1)
-      |> Enum.reduce(acc, fn {event, index}, {current_state, states} ->
+      |> Enum.reduce(acc, fn event, {current_state, states} ->
         next_state = aggregate_module.apply(current_state, event.data)
 
-        entry =
-          {index,
-           %{
-             state: next_state,
-             event: event.data,
-             event_type: String.trim_leading(event.event_type, "Elixir.")
-           }}
+        entry = %{
+          state: next_state,
+          event: event.data,
+          event_type: String.trim_leading(event.event_type, "Elixir.")
+        }
 
         {next_state, [entry | states]}
       end)
 
-    states
-    |> Enum.reverse()
-    |> Enum.into(%{})
+    Enum.reverse(states)
   end
 
   def get_event_store!(eventstore) do
