@@ -1,5 +1,5 @@
-defmodule Commanded.AggregateInspector.Cache do
-  @cache_file "_build/commanded_toolkit_aggregate_inspector_cache"
+defmodule Cqrs.Toolkit.AggregateInspector.Cache do
+  @cache_file "_build/cqrs_toolkit_aggregate_inspector_cache"
 
   use GenServer
 

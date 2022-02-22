@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Commanded.Inspect.AggregateTest do
+defmodule Mix.Tasks.Cqrs.Inspect.AggregateTest do
   use EventStoreCase, async: false
 
   use Cqrs.Testing.ExMachina

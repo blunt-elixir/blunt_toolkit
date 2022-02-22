@@ -1,8 +1,8 @@
-# Commanded Toolkit
+# CqrsToolkit Toolkit
 
 There is currently only one "tool" in this repo. The Aggregate Inspector.
 
-`threequarterspi` over on Slack asked if anyone had implemented some sort of time-traveling for `Commanded`. 
+`threequarterspi` over on Slack asked if anyone had implemented some sort of time-traveling for `CqrsToolkit`. 
 
 I immediately thought of the `redux devtools` and thought that would be pretty cool for viewing aggregate state over time...with real data.
 
@@ -19,14 +19,14 @@ https://user-images.githubusercontent.com/364786/155046788-26fd4ddf-b79c-4da1-81
 
 Add `{:commanded_toolkit, github: "elixir-cqrs/commanded_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
 
-You can launch the UI with `mix commanded.inspect.aggregate`. 
+You can launch the UI with `mix cqrs.inspect.aggregate`. 
 
 That can be a drag to type all the time, so I would recommend assigning an alias in your mix file.
 
 ```elixir
   def aliases do
     [
-      view_state: "commanded.inspect.aggregate"
+      view_state: "cqrs.inspect.aggregate"
     ]
   end
 ```

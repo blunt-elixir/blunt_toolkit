@@ -1,4 +1,4 @@
-defmodule Commanded.AggregateInspector.Commands do
+defmodule Cqrs.Toolkit.AggregateInspector.Commands do
   def load_stream(%{stream: stream, aggregate: aggregate, eventstore: eventstore}) do
     with {:ok, events} <- eventstore.read_stream_forward(stream) do
       step_through(events, aggregate)

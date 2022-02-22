@@ -1,10 +1,10 @@
-defmodule Commanded.AggregateInspector do
+defmodule Cqrs.Toolkit.AggregateInspector do
   @behaviour Ratatouille.App
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
   alias Ratatouille.Runtime.Command
-  alias Commanded.AggregateInspector.{Cache, Commands}
+  alias Cqrs.Toolkit.AggregateInspector.{Cache, Commands}
 
   @enter_key key(:enter)
 

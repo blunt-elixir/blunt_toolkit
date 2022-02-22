@@ -45,7 +45,7 @@ defmodule CommandedToolkit.MixProject do
 
   def aliases do
     [
-      view_state: "commanded.inspect.aggregate"
+      view_state: "cqrs.inspect.aggregate"
     ]
   end
 end
