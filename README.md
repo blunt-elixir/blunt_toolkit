@@ -65,3 +65,42 @@ Strike <kbd>Ctrl+c</kbd> with some heft.
 
 * The next time you run the mix task, it will present you with your last answers as defaults.
 
+
+## Development
+
+You'll need a local postgres install with username `postgres` and password `postgres` (or alter `config/config.exs`)
+
+To populate some events run `mix test`
+
+Then start the UI via `mix view_state`.
+
+Debugging this is difficult to say the least. Logs are swallowed, and it seems all `IO` functions are swallowed as well.
+
+I just start a file in `init`, define a log function, and simply call `log` when I need to see something.
+
+```elixir
+  def init(_context) do
+    {:ok, file} = File.open("debug.log", [:append, {:delayed_write, 100, 20}]
+        config = %{
+          logfile: file,
+      stream: "",
+      ...
+  end
+
+  defp log(%{logfile: logfile}, title \\ "", content) do
+    IO.binwrite(
+      logfile,
+      title <> " - " <> inspect(content, pretty: true, limit: :infinity) <> "\n"
+    )
+
+    content
+  end
+```
+
+## Things to consider.
+
+This was a result of about 2 hours of playing around. It's not optimized for large streams. 
+
+It would be nice to be able to just grab n events up front and request more events as needed. 
+
+But `¯\_(ツ)_/¯`
