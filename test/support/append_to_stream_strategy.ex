@@ -3,7 +3,7 @@ defmodule AppendToStreamStrategy do
 
   alias EventStore
   alias EventStore.EventData
-  alias Cqrs.Message.Metadata
+  alias Blunt.Message.Metadata
 
   def handle_append_to_stream(event, %{stream_uuid: stream_uuid}),
     do: handle_append_to_stream(event, %{}, stream_uuid: stream_uuid)

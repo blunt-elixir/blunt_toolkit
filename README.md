@@ -1,4 +1,4 @@
-# Cqrs Toolkit
+# Blunt Toolkit
 
 There is currently only one "tool" in this repo. The Aggregate Inspector.
 
@@ -16,16 +16,16 @@ https://user-images.githubusercontent.com/364786/155075370-407d76f1-a002-4dfb-9f
 ## Usage
 
 
-Add `{:cqrs_toolkit, github: "elixir-cqrs/cqrs_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
+Add `{:cqrs_toolkit, github: "elixir-blunt/cqrs_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
 
-You can launch the UI with `mix cqrs.inspect.aggregate`. 
+You can launch the UI with `mix blunt.inspect.aggregate`. 
 
 That can be a drag to type all the time, so I would recommend assigning an alias in your mix file.
 
 ```elixir
   def aliases do
     [
-      view_state: "cqrs.inspect.aggregate"
+      view_state: "blunt.inspect.aggregate"
     ]
   end
 ```

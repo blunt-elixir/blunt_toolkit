@@ -1,12 +1,12 @@
-defmodule Cqrs.Toolkit.AggregateInspector do
+defmodule Blunt.Toolkit.AggregateInspector do
   @behaviour Ratatouille.App
   import Ratatouille.View
   import Ratatouille.Constants, only: [key: 1]
 
-  use Cqrs.Toolkit.AggregateInspector.InputHandlers
+  use Blunt.Toolkit.AggregateInspector.InputHandlers
 
   alias Ratatouille.Runtime.Command
-  alias Cqrs.Toolkit.AggregateInspector.{Cache, Commands}
+  alias Blunt.Toolkit.AggregateInspector.{Cache, Commands}
 
   @enter_key key(:enter)
 

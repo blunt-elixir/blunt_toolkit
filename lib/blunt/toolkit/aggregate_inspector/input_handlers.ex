@@ -1,5 +1,5 @@
-defmodule Cqrs.Toolkit.AggregateInspector.InputHandlers do
-  alias Cqrs.Toolkit.AggregateInspector.InputHandlers
+defmodule Blunt.Toolkit.AggregateInspector.InputHandlers do
+  alias Blunt.Toolkit.AggregateInspector.InputHandlers
 
   defmacro __using__(_opts) do
     quote do

@@ -1,4 +1,4 @@
-defmodule Cqrs.Toolkit.AggregateInspector.Cache do
+defmodule Blunt.Toolkit.AggregateInspector.Cache do
   @cache_file "_build/cqrs_toolkit_aggregate_inspector_cache"
 
   use GenServer

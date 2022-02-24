@@ -11,6 +11,7 @@ defmodule CommandedToolkit.MixProject do
       aliases: aliases(),
       elixirc_paths: elixirc_paths(Mix.env()),
       preferred_cli_env: [
+        "blunt.project": :test,
         view_state: :test
       ]
     ]
@@ -30,10 +31,12 @@ defmodule CommandedToolkit.MixProject do
   defp deps do
     [
       {:ratatouille, "~> 0.5"},
-      {:cqrs_tools, github: "elixir-cqrs/cqrs_tools"},
-      {:cqrs_tools_ddd, github: "elixir-cqrs/cqrs_tools_ddd"},
-      # {:cqrs_tools, path: "../cqrs_tools", override: true},
-      # {:cqrs_tools_ddd, path: "../cqrs_tools_ddd", override: true},
+
+      # {:blunt, path: "../blunt", override: true},
+      # {:blunt_ddd, path: "../blunt_ddd", override: true},
+      {:blunt, "~> 0.1"},
+      {:blunt_ddd, "~> 0.1"},
+
       {:commanded, "~> 1.3"},
       {:eventstore, "~> 1.3"},
       {:jason, "~> 1.3"},
@@ -45,7 +48,7 @@ defmodule CommandedToolkit.MixProject do
 
   def aliases do
     [
-      view_state: "cqrs.inspect.aggregate"
+      view_state: "blunt.inspect.aggregate"
     ]
   end
 end

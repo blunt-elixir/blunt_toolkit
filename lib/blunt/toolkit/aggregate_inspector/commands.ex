@@ -1,4 +1,4 @@
-defmodule Cqrs.Toolkit.AggregateInspector.Commands do
+defmodule Blunt.Toolkit.AggregateInspector.Commands do
   def load_stream(%{stream: stream, aggregate: aggregate, eventstore: eventstore}) do
     with {:ok, events} <- eventstore.read_stream_forward(stream) do
       step_through(events, aggregate)
@@ -28,7 +28,7 @@ defmodule Cqrs.Toolkit.AggregateInspector.Commands do
 
   def get_event_store!(eventstore) do
     eventstore = String.to_atom("Elixir." <> eventstore)
-    Cqrs.Behaviour.validate!(eventstore, EventStore)
+    Blunt.Behaviour.validate!(eventstore, EventStore)
 
     {:ok, _} = Application.ensure_all_started(:eventstore)
 
@@ -42,6 +42,6 @@ defmodule Cqrs.Toolkit.AggregateInspector.Commands do
   def get_aggregate!(aggregate) do
     ("Elixir." <> aggregate)
     |> String.to_atom()
-    |> Cqrs.Behaviour.validate!(Cqrs.AggregateRoot)
+    |> Blunt.Behaviour.validate!(Blunt.AggregateRoot)
   end
 end

@@ -1,5 +1,5 @@
 defmodule PersonCreated do
-  use Cqrs.DomainEvent
+  use Blunt.DomainEvent
 
   field :id, :binary_id
   field :name, :string
