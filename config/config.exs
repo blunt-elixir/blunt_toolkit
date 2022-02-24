@@ -2,7 +2,7 @@ import Config
 
 config :logger, level: :warn
 
-config :cqrs_toolkit, TestEventStore,
+config :blunt_toolkit, TestEventStore,
   column_data_type: "jsonb",
   username: "postgres",
   password: "postgres",

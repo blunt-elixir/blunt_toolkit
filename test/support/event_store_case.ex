@@ -6,7 +6,7 @@ defmodule EventStoreCase do
   setup_all do
     event_store = TestEventStore
 
-    config = Config.parsed(event_store, :cqrs_toolkit)
+    config = Config.parsed(event_store, :blunt_toolkit)
 
     postgrex_config = Config.default_postgrex_opts(config)
 

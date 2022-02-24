@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/364786/155075370-407d76f1-a002-4dfb-9f
 ## Usage
 
 
-Add `{:cqrs_toolkit, github: "elixir-blunt/cqrs_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
+Add `{:blunt_toolkit, github: "elixir-blunt/blunt_toolkit", runtime: false, only: :dev}` to your deps and run `mix deps.get`.
 
 You can launch the UI with `mix blunt.inspect.aggregate`. 
 
